@@ -2,4 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
+  <url>
+    <loc>https://kmaris.net/posts/firstpost/</loc>
+    <lastmod>2020-10-21T10:15:37-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kmaris.net/categories/</loc>
+    <lastmod>2020-10-21T10:15:37-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kmaris.net/posts/</loc>
+    <lastmod>2020-10-21T10:15:37-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kmaris.net/tags/</loc>
+    <lastmod>2020-10-21T10:15:37-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kmaris.net/tags/tea/</loc>
+    <lastmod>2020-10-21T10:15:37-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kmaris.net/categories/tech/</loc>
+    <lastmod>2020-10-21T10:15:37-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kmaris.net/about/</loc>
+    <lastmod>2020-10-21T09:39:51-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://kmaris.net/</loc>
+    <lastmod>2020-10-21T09:38:19-06:00</lastmod>
+  </url>
+  
 </urlset>

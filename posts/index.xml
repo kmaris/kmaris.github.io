@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on kmaris</title>
+    <link>https://kmaris.net/posts/</link>
+    <description>Recent content in Posts on kmaris</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 Oct 2020 10:15:37 -0600</lastBuildDate><atom:link href="https://kmaris.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Back to it</title>
+      <link>https://kmaris.net/posts/firstpost/</link>
+      <pubDate>Wed, 21 Oct 2020 10:15:37 -0600</pubDate>
+      
+      <guid>https://kmaris.net/posts/firstpost/</guid>
+      <description>We&amp;rsquo;ll see how long I keep this up, but it is something I&amp;rsquo;ve needed to do for a while now. The majority of these posts will probably refer to my software/tech side of life. But for now I&amp;rsquo;ll just get it all started off with a fact about tea:
+There is a special name for when tea leaves uncurl as hot water is poured over them. It is called “the agony of the leaves.</description>
+    </item>
+    
+  </channel>
+</rss>
