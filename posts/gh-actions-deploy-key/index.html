@@ -116,7 +116,7 @@ source repo make a workflow (I call mine gh-pages.yml) at
 </span><span style="color:#8f5902;font-style:italic">            git push
 </span><span style="color:#8f5902;font-style:italic">          fi</span><span style="color:#f8f8f8;text-decoration:underline">          
 </span></code></pre></div>
-<p>By doing a <code>git add -N .</code> before <code>git diff</code> we can have diff pay attention to
+<p>By doing a <code>git add --intent-to-add .</code> before <code>git diff</code> we can have diff pay attention to
 any new, untracked files. And if there are diffs, commit and push the new
 content!</p>
 
