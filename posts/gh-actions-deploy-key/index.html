@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Github Actions Deploy Key | kmaris</title>
+    <link rel="stylesheet" href="/css/water.css" />
+    <link rel="stylesheet" href="/css/xmin.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Github Actions Deploy Key</span></h1>
+
+<h2 class="date">2020/10/23</h2>
+</div>
+
+<main>
+<h3 id="-and-how-to-use-it-to-deploy-a-static-website">&hellip; and how to use it to deploy a static website.</h3>
+<p>Well, I ran out of patience with my own static website generator. While I <em>do</em>
+plan to finish it, in the meantime I won&rsquo;t be using it to generate this
+website. So, for now it&rsquo;s <a href="https://gohugo.io">hugo</a>. Nowthen, how to get it deployed? I&rsquo;ve been
+wanting to try it with Github Actions for a while and this seemed like a
+nice fit.</p>
+<h4 id="mental-outline">Mental outline</h4>
+<p>There are two primary repositories I&rsquo;m using to make this website. First is
+the <a href="https://github.com/kmaris/kmaris.net">project source repository</a> containing markdown files, static assets,
+submodule refs to <a href="https://github.com/kmaris/hugo-xmin">my fork</a> of the <a href="https://github.com/yihui/hugo-xmin">hugo-xmin</a> theme, and so on. Second is
+the main [Github Pages repository] that is used as the root resource for
+<a href="https://kmaris.github.io">https://kmaris.github.io</a>. (I use a custom domain
+instead but I&rsquo;ll defer talking about that.)</p>
+<p>So, what do we need to do? The goal is to get the content from the
+main project source repository, render it through hugo, and published into the
+github pages repository. In pseudo-workflow the steps, at first glance, are
+essentially:</p>
+<ul>
+<li>Clone the main project source</li>
+<li>Render the source to the github pages repository</li>
+<li>Commit and publish to the pages repository</li>
+</ul>
+<p>Generally speaking that&rsquo;s the idea, but some tricks come up during
+implementation that the steps above don&rsquo;t cover. For instance, rendering the
+project source <em>to</em> the pages repository usually implies the destination
+repository is already checked out. So in the workflow it will be cloned before
+the build step happens.</p>
+<h6 id="-with-a-pinch-of-implementation-details">&hellip; with a pinch of implementation details</h6>
+<p>Knowing that we&rsquo;re going to be deploying content into a repository, a deploy
+key is what we&rsquo;ll need. A deploy key is an ssh key with the private key
+stored in the source repository as a secret (alongside the code) and the public
+part is in the destination repository. This is better than using a personal
+access token because you&rsquo;re keeping permissions to your repository very low;
+namely just to deploying.</p>
+<h4 id="so-lets-do-it">So lets do it</h4>
+<p>Generate your new deploy key:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh-keygen -C pagesdeploy@github -f ./pages_key -N <span style="color:#e6db74">&#34;&#34;</span>
+</code></pre></div><p>You&rsquo;ll have two files now, a private key named <code>pages_key</code> and the public part
+<code>pages_key.pub</code>.</p>
+<p>Then create a Deploy key in your pages repo from the public key:</p>
+<p><img src="deploykey.png" alt="Deploy key"></p>
+<p>and a Secret in the source repo from the private key:</p>
+<p><img src="secrets.png" alt="Secret"></p>
+<p>By using the deploy key to do the checkout, the action runner will have the
+permissions to do the push and we don&rsquo;t have to tinker with tokens. In your
+source repo make a workflow (I call mine gh-pages.yml) at
+.github/webhooks/gh-pages.yml and in it you&rsquo;ll have the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">name</span>: <span style="color:#ae81ff">github-pages</span>
+
+<span style="color:#f92672">on</span>:
+  <span style="color:#f92672">push</span>:
+    <span style="color:#f92672">branches</span>:
+      - <span style="color:#ae81ff">master</span>
+
+<span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">pages</span>:
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout hugo website</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">submodules</span>: <span style="color:#66d9ef">true</span>
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout pages repo</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">repository</span>: <span style="color:#ae81ff">kmaris/kmaris.github.io</span>
+          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">public</span>
+          <span style="color:#f92672">ssh-key</span>: <span style="color:#ae81ff">${{ secrets.GHPAGES_DEPLOY_KEY }}</span>
+      - <span style="color:#f92672">run</span>: <span style="color:#ae81ff">rm -rf public/*</span>
+      - <span style="color:#f92672">run</span>: <span style="color:#ae81ff">docker run --rm -i -v $(pwd):/src klakegg/hugo:latest</span>
+      - <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">          cd public
+</span><span style="color:#e6db74">          git config user.name github-actions
+</span><span style="color:#e6db74">          git config user.email github-actions@github.com
+</span><span style="color:#e6db74">          git add -N .
+</span><span style="color:#e6db74">          if ! git diff --quiet ; then
+</span><span style="color:#e6db74">            git commit -a -m &#39;Built by gh-actions from kmaris/kmaris.net&#39;
+</span><span style="color:#e6db74">            git push
+</span><span style="color:#e6db74">          fi</span>          
+</code></pre></div>
+<p>By doing a <code>git add -N .</code> before <code>git diff</code> we can have diff pay attention to
+any new, untracked files. And if there are diffs, commit and push the new
+content!</p>
+
+</main>
+
+  <footer>
+  
+  
+  © Kevin Maris 2020 <a href="https://github.com/kmaris">Github</a> | <a href="https://gitlab.com/kmaris">Gitlab</a>
+  
+  </footer>
+  </body>
+</html>
+

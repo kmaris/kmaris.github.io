@@ -6,7 +6,16 @@
     <description>Recent content in Posts on kmaris</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Oct 2020 10:15:37 -0600</lastBuildDate><atom:link href="https://kmaris.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 09:47:04 -0600</lastBuildDate><atom:link href="https://kmaris.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github Actions Deploy Key</title>
+      <link>https://kmaris.net/posts/gh-actions-deploy-key/</link>
+      <pubDate>Fri, 23 Oct 2020 09:47:04 -0600</pubDate>
+      
+      <guid>https://kmaris.net/posts/gh-actions-deploy-key/</guid>
+      <description>&amp;hellip; and how to use it to deploy a static website. Well, I ran out of patience with my own static website generator. While I do plan to finish it, in the meantime I won&amp;rsquo;t be using it to generate this website. So, for now it&amp;rsquo;s hugo. Nowthen, how to get it deployed? I&amp;rsquo;ve been wanting to try it with Github Actions for a while and this seemed like a nice fit.</description>
+    </item>
+    
     <item>
       <title>Back to it</title>
       <link>https://kmaris.net/posts/firstpost/</link>

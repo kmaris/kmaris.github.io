@@ -1,0 +1,32 @@
+name: github-pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout hugo website
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Checkout pages repo
+        uses: actions/checkout@v2
+        with:
+          repository: kmaris/kmaris.github.io
+          path: public
+          ssh-key: ${{ secrets.GHPAGES_DEPLOY_KEY }}
+      - run: rm -rf public/*
+      - run: docker run --rm -i -v $(pwd):/src klakegg/hugo:latest
+      - run: |
+          cd public
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -N .
+          if ! git diff --quiet ; then
+            git commit -a -m 'Built by gh-actions from kmaris/kmaris.net'
+            git push
+          fi
