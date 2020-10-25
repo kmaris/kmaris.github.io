@@ -70,7 +70,7 @@ access token because you&rsquo;re keeping permissions to your repository very lo
 namely just to deploying.</p>
 <h4 id="so-lets-do-it">So lets do it</h4>
 <p>Generate your new deploy key:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh-keygen -C pagesdeploy@github -f ./pages_key -N <span style="color:#e6db74">&#34;&#34;</span>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh-keygen -C pagesdeploy@github -f ./pages_key -N <span style="color:#4e9a06">&#34;&#34;</span>
 </code></pre></div><p>You&rsquo;ll have two files now, a private key named <code>pages_key</code> and the public part
 <code>pages_key.pub</code>.</p>
 <p>Then create a Deploy key in your pages repo from the public key:</p>
@@ -81,39 +81,39 @@ namely just to deploying.</p>
 permissions to do the push and we don&rsquo;t have to tinker with tokens. In your
 source repo make a workflow (I call mine gh-pages.yml) at
 .github/webhooks/gh-pages.yml and in it you&rsquo;ll have the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">name</span>: <span style="color:#ae81ff">github-pages</span>
-
-<span style="color:#f92672">on</span>:
-  <span style="color:#f92672">push</span>:
-    <span style="color:#f92672">branches</span>:
-      - <span style="color:#ae81ff">master</span>
-
-<span style="color:#f92672">jobs</span>:
-  <span style="color:#f92672">pages</span>:
-    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
-    <span style="color:#f92672">steps</span>:
-      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout hugo website</span>
-        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
-        <span style="color:#f92672">with</span>:
-          <span style="color:#f92672">submodules</span>: <span style="color:#66d9ef">true</span>
-      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout pages repo</span>
-        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
-        <span style="color:#f92672">with</span>:
-          <span style="color:#f92672">repository</span>: <span style="color:#ae81ff">kmaris/kmaris.github.io</span>
-          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">public</span>
-          <span style="color:#f92672">ssh-key</span>: <span style="color:#ae81ff">${{ secrets.GHPAGES_DEPLOY_KEY }}</span>
-      - <span style="color:#f92672">run</span>: <span style="color:#ae81ff">rm -rf public/*</span>
-      - <span style="color:#f92672">run</span>: <span style="color:#ae81ff">docker run --rm -i -v $(pwd):/src klakegg/hugo:latest</span>
-      - <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
-</span><span style="color:#e6db74">          cd public
-</span><span style="color:#e6db74">          git config user.name github-actions
-</span><span style="color:#e6db74">          git config user.email github-actions@github.com
-</span><span style="color:#e6db74">          git add -N .
-</span><span style="color:#e6db74">          if ! git diff --quiet ; then
-</span><span style="color:#e6db74">            git commit -a -m &#39;Built by gh-actions from kmaris/kmaris.net&#39;
-</span><span style="color:#e6db74">            git push
-</span><span style="color:#e6db74">          fi</span>          
-</code></pre></div>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">github-pages</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">push</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">branches</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#000">master</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">jobs</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">pages</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">runs-on</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">ubuntu-latest</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">    </span><span style="color:#204a87;font-weight:bold">steps</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Checkout hugo website</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">uses</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">actions/checkout@v2</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">with</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">submodules</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">true</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Checkout pages repo</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">uses</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">actions/checkout@v2</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">with</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">repository</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">kmaris/kmaris.github.io</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">path</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">public</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">ssh-key</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">${{ secrets.GHPAGES_DEPLOY_KEY }}</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">rm -rf public/*</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">docker run --rm -i -v $(pwd):/src klakegg/hugo:latest</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">|</span><span style="color:#8f5902;font-style:italic">
+</span><span style="color:#8f5902;font-style:italic">          cd public
+</span><span style="color:#8f5902;font-style:italic">          git config user.name github-actions
+</span><span style="color:#8f5902;font-style:italic">          git config user.email github-actions@github.com
+</span><span style="color:#8f5902;font-style:italic">          git add -N .
+</span><span style="color:#8f5902;font-style:italic">          if ! git diff --quiet ; then
+</span><span style="color:#8f5902;font-style:italic">            git commit -a -m &#39;Built by gh-actions from kmaris/kmaris.net&#39;
+</span><span style="color:#8f5902;font-style:italic">            git push
+</span><span style="color:#8f5902;font-style:italic">          fi</span><span style="color:#f8f8f8;text-decoration:underline">          
+</span></code></pre></div>
 <p>By doing a <code>git add -N .</code> before <code>git diff</code> we can have diff pay attention to
 any new, untracked files. And if there are diffs, commit and push the new
 content!</p>
