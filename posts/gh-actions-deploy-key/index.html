@@ -44,9 +44,8 @@ nice fit.</p>
 <p>There are two primary repositories I&rsquo;m using to make this website. First is
 the <a href="https://github.com/kmaris/kmaris.net">project source repository</a> containing markdown files, static assets,
 submodule refs to <a href="https://github.com/kmaris/hugo-xmin">my fork</a> of the <a href="https://github.com/yihui/hugo-xmin">hugo-xmin</a> theme, and so on. Second is
-the main [Github Pages repository] that is used as the root resource for
-<a href="https://kmaris.github.io">https://kmaris.github.io</a>. (I use a custom domain
-instead but I&rsquo;ll defer talking about that.)</p>
+the main <a href="https://github.com/kmaris/kmaris.github.io">Github Pages repository</a>
+that is used as the root resource for <a href="https://kmaris.net">https://kmaris.net</a>.</p>
 <p>So, what do we need to do? The goal is to get the content from the
 main project source repository, render it through hugo, and published into the
 github pages repository. In pseudo-workflow the steps, at first glance, are
@@ -80,7 +79,7 @@ namely just to deploying.</p>
 <p>By using the deploy key to do the checkout, the action runner will have the
 permissions to do the push and we don&rsquo;t have to tinker with tokens. In your
 source repo make a workflow (I call mine gh-pages.yml) at
-.github/webhooks/gh-pages.yml and in it you&rsquo;ll have the following:</p>
+<code>.github/webhooks/gh-pages.yml</code> and in it you&rsquo;ll have the following:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">github-pages</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
@@ -102,14 +101,18 @@ source repo make a workflow (I call mine gh-pages.yml) at
 </span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">repository</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">kmaris/kmaris.github.io</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">path</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">public</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">          </span><span style="color:#204a87;font-weight:bold">ssh-key</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">${{ secrets.GHPAGES_DEPLOY_KEY }}</span><span style="color:#f8f8f8;text-decoration:underline">
-</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">docker run --rm -i -v $(pwd):/src klakegg/hugo:latest --cleanDestinationDir=true</span><span style="color:#f8f8f8;text-decoration:underline">
-</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">|</span><span style="color:#8f5902;font-style:italic">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Build website</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">docker run --rm -i -v $(pwd):/src klakegg/hugo:latest --cleanDestinationDir=true</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Set website build commit message</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">echo &#34;COMMIT_MSG=&#39;$(git log -1 --pretty=reference)&#39;&#34; &gt;&gt; $GITHUB_ENV</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Commit built website</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">|</span><span style="color:#8f5902;font-style:italic">
 </span><span style="color:#8f5902;font-style:italic">          cd public
-</span><span style="color:#8f5902;font-style:italic">          git config user.name github-actions
-</span><span style="color:#8f5902;font-style:italic">          git config user.email github-actions@github.com
 </span><span style="color:#8f5902;font-style:italic">          git add -N .
 </span><span style="color:#8f5902;font-style:italic">          if ! git diff --quiet ; then
-</span><span style="color:#8f5902;font-style:italic">            git commit -a -m &#39;Built by gh-actions from kmaris/kmaris.net&#39;
+</span><span style="color:#8f5902;font-style:italic">            git config user.name github-actions
+</span><span style="color:#8f5902;font-style:italic">            git config user.email github-actions@github.com
+</span><span style="color:#8f5902;font-style:italic">            git commit -a -m &#34;${{ env.COMMIT_MSG }}&#34;
 </span><span style="color:#8f5902;font-style:italic">            git push
 </span><span style="color:#8f5902;font-style:italic">          fi</span><span style="color:#f8f8f8;text-decoration:underline">          
 </span></code></pre></div>
