@@ -108,11 +108,11 @@ source repo make a workflow (I call mine gh-pages.yml) at
 </span><span style="color:#f8f8f8;text-decoration:underline">      </span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">Commit built website</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">        </span><span style="color:#204a87;font-weight:bold">run</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000;font-weight:bold">|</span><span style="color:#8f5902;font-style:italic">
 </span><span style="color:#8f5902;font-style:italic">          cd public
-</span><span style="color:#8f5902;font-style:italic">          git add -N .
+</span><span style="color:#8f5902;font-style:italic">          git add --intent-to-add .
 </span><span style="color:#8f5902;font-style:italic">          if ! git diff --quiet ; then
 </span><span style="color:#8f5902;font-style:italic">            git config user.name github-actions
 </span><span style="color:#8f5902;font-style:italic">            git config user.email github-actions@github.com
-</span><span style="color:#8f5902;font-style:italic">            git commit -a -m &#34;${{ env.COMMIT_MSG }}&#34;
+</span><span style="color:#8f5902;font-style:italic">            git commit --all --message &#34;${{ env.COMMIT_MSG }}&#34;
 </span><span style="color:#8f5902;font-style:italic">            git push
 </span><span style="color:#8f5902;font-style:italic">          fi</span><span style="color:#f8f8f8;text-decoration:underline">          
 </span></code></pre></div>
