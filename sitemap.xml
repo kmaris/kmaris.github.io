@@ -1,50 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://kmaris.net/posts/gh-actions-deploy-key/</loc>
     <lastmod>2020-10-23T09:47:04-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://kmaris.net/posts/</loc>
     <lastmod>2020-10-23T09:47:04-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://kmaris.net/posts/firstpost/</loc>
     <lastmod>2020-10-21T10:15:37-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://kmaris.net/categories/</loc>
     <lastmod>2020-10-21T10:15:37-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://kmaris.net/tags/</loc>
     <lastmod>2020-10-21T10:15:37-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://kmaris.net/tags/tea/</loc>
     <lastmod>2020-10-21T10:15:37-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://kmaris.net/categories/tech/</loc>
     <lastmod>2020-10-21T10:15:37-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://kmaris.net/about/</loc>
     <lastmod>2020-10-21T09:39:51-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://kmaris.net/</loc>
     <lastmod>2020-10-21T09:38:19-06:00</lastmod>
   </url>
-  
 </urlset>

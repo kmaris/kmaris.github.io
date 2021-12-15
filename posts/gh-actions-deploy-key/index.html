@@ -69,7 +69,7 @@ access token because you&rsquo;re keeping permissions to your repository very lo
 namely just to deploying.</p>
 <h4 id="so-lets-do-it">So lets do it</h4>
 <p>Generate your new deploy key:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh-keygen -C pagesdeploy@github -f ./pages_key -N <span style="color:#4e9a06">&#34;&#34;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh-keygen -C pagesdeploy@github -f ./pages_key -N <span style="color:#4e9a06">&#34;&#34;</span>
 </code></pre></div><p>You&rsquo;ll have two files now, a private key named <code>pages_key</code> and the public part
 <code>pages_key.pub</code>.</p>
 <p>Then create a Deploy key in your pages repo from the public key:</p>
@@ -80,7 +80,7 @@ namely just to deploying.</p>
 permissions to do the push and we don&rsquo;t have to tinker with tokens. In your
 source repo make a workflow (I call mine gh-pages.yml) at
 <code>.github/webhooks/gh-pages.yml</code> and in it you&rsquo;ll have the following:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">github-pages</span><span style="color:#f8f8f8;text-decoration:underline">
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#000">github-pages</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline"></span><span style="color:#204a87;font-weight:bold">on</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">push</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
