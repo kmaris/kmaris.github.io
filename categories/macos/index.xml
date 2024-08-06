@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>tech on kmaris</title>
-    <link>https://kmaris.net/categories/tech/</link>
-    <description>Recent content in tech on kmaris</description>
+    <title>macos on kmaris</title>
+    <link>https://kmaris.net/categories/macos/</link>
+    <description>Recent content in macos on kmaris</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Oct 2023 10:12:32 -0600</lastBuildDate><atom:link href="https://kmaris.net/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Oct 2023 10:12:32 -0600</lastBuildDate><atom:link href="https://kmaris.net/categories/macos/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>iTerm2, ssh, and remote tmux session integration for vim</title>
       <link>https://kmaris.net/posts/iterm2-tmux-ssh/</link>

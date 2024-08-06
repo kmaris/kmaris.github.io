@@ -2,20 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://kmaris.net/categories/</loc>
+    <lastmod>2023-10-05T10:12:32-06:00</lastmod>
+  </url><url>
+    <loc>https://kmaris.net/posts/iterm2-tmux-ssh/</loc>
+    <lastmod>2023-10-05T10:12:32-06:00</lastmod>
+  </url><url>
+    <loc>https://kmaris.net/categories/macos/</loc>
+    <lastmod>2023-10-05T10:12:32-06:00</lastmod>
+  </url><url>
+    <loc>https://kmaris.net/posts/</loc>
+    <lastmod>2023-10-05T10:12:32-06:00</lastmod>
+  </url><url>
+    <loc>https://kmaris.net/categories/ssh/</loc>
+    <lastmod>2023-10-05T10:12:32-06:00</lastmod>
+  </url><url>
+    <loc>https://kmaris.net/categories/tech/</loc>
+    <lastmod>2023-10-05T10:12:32-06:00</lastmod>
+  </url><url>
+    <loc>https://kmaris.net/categories/tmux/</loc>
+    <lastmod>2023-10-05T10:12:32-06:00</lastmod>
+  </url><url>
     <loc>https://kmaris.net/cv/</loc>
     <lastmod>2022-04-14T07:28:49-06:00</lastmod>
   </url><url>
     <loc>https://kmaris.net/posts/gh-actions-deploy-key/</loc>
     <lastmod>2020-10-23T09:47:04-06:00</lastmod>
-  </url><url>
-    <loc>https://kmaris.net/posts/</loc>
-    <lastmod>2020-10-23T09:47:04-06:00</lastmod>
-  </url><url>
-    <loc>https://kmaris.net/posts/firstpost/</loc>
-    <lastmod>2020-10-21T10:15:37-06:00</lastmod>
-  </url><url>
-    <loc>https://kmaris.net/categories/</loc>
-    <lastmod>2020-10-21T10:15:37-06:00</lastmod>
   </url><url>
     <loc>https://kmaris.net/tags/</loc>
     <lastmod>2020-10-21T10:15:37-06:00</lastmod>
@@ -23,7 +35,7 @@
     <loc>https://kmaris.net/tags/tea/</loc>
     <lastmod>2020-10-21T10:15:37-06:00</lastmod>
   </url><url>
-    <loc>https://kmaris.net/categories/tech/</loc>
+    <loc>https://kmaris.net/posts/firstpost/</loc>
     <lastmod>2020-10-21T10:15:37-06:00</lastmod>
   </url><url>
     <loc>https://kmaris.net/about/</loc>

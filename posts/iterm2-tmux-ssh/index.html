@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>iTerm2, ssh, and remote tmux session integration for vim | kmaris</title>
+    <link rel="stylesheet" href="/css/water.css" />
+    <link rel="stylesheet" href="/css/xmin.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/cv/">CV</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">iTerm2, ssh, and remote tmux session integration for vim</span></h1>
+
+<h2 class="date">2023/10/05</h2>
+</div>
+
+<main>
+<p>If you often use vim, especially while working on remote servers, you know how
+annoying getting mouse integration to work is. Here is what I have found works
+best for me. What I wanted was:</p>
+<ul>
+<li>Functional ⌘-C and ⌘-V for copy/paste into and out of the terminal.</li>
+<li>Copy/paste needs to work with tmux running on the remote host.</li>
+<li>Mouse scrolling still works in some form.</li>
+</ul>
+<p>Mouse scroll is the thing that suffers here, for me. If you do <code>set mouse=a</code>
+you get the best vim scrolling behavior as in this video: As in this video:</p>
+<p><a href="https://asciinema.org/a/KjgXrD7LdhwmDBpY4zPl5wtO7"><img src="https://asciinema.org/a/KjgXrD7LdhwmDBpY4zPl5wtO7.svg" alt="asciicast"></a></p>
+<p>But then to copy/paste you must hold Option(⌥) when selecting text with the
+mouse. I always forget this, so I settle for worse scrolling by keeping the
+mouse setting unset: <code>set mouse=</code> which is the vim default. You also lose the
+ability to click a position to locate the cursor at the click. See the
+difference:</p>
+<script async id="asciicast-vxl2uqpexwATnt13yUTEzYkqO" src="https://asciinema.org/a/vxl2uqpexwATnt13yUTEzYkqO.js"></script>
+<p>I also like to use iTerm2&rsquo;s native support for tmux because I can never
+remember the default keys. One of the first things I did upon learning tmux was
+to use personalized keys for actions like splitting windows. That might have
+been a mistake. Now when I go to a remote server, my custom settings and theme
+and vim integrations are all useless there.</p>
+<p>Here&rsquo;s a nifty function I found <a href="https://superuser.com/questions/741769/remote-server-iterm2-and-tmux-integration">on stackoverflow</a>. I also <em>highly</em>
+recommend that you enable completion for the function. My preferred completion
+is to behave like ssh so I can tab-complete for hostnames. The <code>compdef</code>
+command might be specific to <code>zsh</code> so it might take a little tweaking between
+OS&rsquo;es, distros, and shells.</p>
+<p>You&rsquo;ll notice I use autossh, if you want to use plain ssh replace <code>autossh -M 8888</code> with <code>ssh</code> and you&rsquo;re good. You will also want to change the <code>kmaris</code>
+session name to something else 🙂. Using <code>new -A -s</code> will ensure that tmux will
+use an existing session with that name, <em>or</em> create a new session with that
+name.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"># tmux+ssh helper function with iterm integration</span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">function</span> tmssh <span style="color:#ce5c00;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#ce5c00;font-weight:bold">[[</span> -z <span style="color:#4e9a06">&#34;</span><span style="color:#000">$1</span><span style="color:#4e9a06">&#34;</span> <span style="color:#ce5c00;font-weight:bold">]]</span><span style="color:#000;font-weight:bold">;</span> <span style="color:#204a87;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">me</span><span style="color:#ce5c00;font-weight:bold">=</span><span style="color:#4e9a06">&#34;</span><span style="color:#4e9a06">${</span><span style="color:#000">FUNCNAME</span><span style="color:#000;font-weight:bold">[0]</span><span style="color:#4e9a06">}${</span><span style="color:#000">funcstack</span><span style="color:#000;font-weight:bold">[1]</span><span style="color:#4e9a06">}</span><span style="color:#4e9a06">&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87">echo</span> <span style="color:#4e9a06">&#34;usage: </span><span style="color:#000">$me</span><span style="color:#4e9a06"> [ssh-args] hostname&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">return</span> <span style="color:#0000cf;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#204a87;font-weight:bold">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  autossh -M <span style="color:#0000cf;font-weight:bold">8888</span> <span style="color:#4e9a06">&#34;</span><span style="color:#000">$@</span><span style="color:#4e9a06">&#34;</span> -t <span style="color:#4e9a06">&#39;tmux -CC new -A -s kmaris&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#ce5c00;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>compdef <span style="color:#000">tmssh</span><span style="color:#ce5c00;font-weight:bold">=</span>ssh
+</span></span></code></pre></div>
+</main>
+
+  <footer>
+  
+  
+  © Kevin Maris 2020 <a href="https://github.com/kmaris">Github</a> | <a href="https://gitlab.com/kmaris">Gitlab</a>
+  
+  </footer>
+  </body>
+</html>
+

@@ -6,7 +6,17 @@
     <description>Recent content in Posts on kmaris</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Oct 2020 09:47:04 -0600</lastBuildDate><atom:link href="https://kmaris.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Oct 2023 10:12:32 -0600</lastBuildDate><atom:link href="https://kmaris.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iTerm2, ssh, and remote tmux session integration for vim</title>
+      <link>https://kmaris.net/posts/iterm2-tmux-ssh/</link>
+      <pubDate>Thu, 05 Oct 2023 10:12:32 -0600</pubDate>
+      
+      <guid>https://kmaris.net/posts/iterm2-tmux-ssh/</guid>
+      <description>If you often use vim, especially while working on remote servers, you know how annoying getting mouse integration to work is. Here is what I have found works best for me. What I wanted was:
+Functional ⌘-C and ⌘-V for copy/paste into and out of the terminal. Copy/paste needs to work with tmux running on the remote host. Mouse scrolling still works in some form. Mouse scroll is the thing that suffers here, for me.</description>
+    </item>
+    
     <item>
       <title>Github Actions Deploy Key</title>
       <link>https://kmaris.net/posts/gh-actions-deploy-key/</link>
@@ -17,7 +27,7 @@
     </item>
     
     <item>
-      <title>Back to it</title>
+      <title>Tea titbit</title>
       <link>https://kmaris.net/posts/firstpost/</link>
       <pubDate>Wed, 21 Oct 2020 10:15:37 -0600</pubDate>
       
