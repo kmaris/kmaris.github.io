@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://kmaris.net/posts/</loc>
+    <lastmod>2024-09-05T07:35:53-06:00</lastmod>
+  </url><url>
+    <loc>https://kmaris.net/posts/morrow-repair-destiny/</loc>
+    <lastmod>2024-09-05T07:35:53-06:00</lastmod>
+  </url><url>
     <loc>https://kmaris.net/categories/</loc>
     <lastmod>2023-10-05T10:12:32-06:00</lastmod>
   </url><url>
@@ -9,9 +15,6 @@
     <lastmod>2023-10-05T10:12:32-06:00</lastmod>
   </url><url>
     <loc>https://kmaris.net/categories/macos/</loc>
-    <lastmod>2023-10-05T10:12:32-06:00</lastmod>
-  </url><url>
-    <loc>https://kmaris.net/posts/</loc>
     <lastmod>2023-10-05T10:12:32-06:00</lastmod>
   </url><url>
     <loc>https://kmaris.net/categories/ssh/</loc>

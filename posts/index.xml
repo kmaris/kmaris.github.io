@@ -6,7 +6,17 @@
     <description>Recent content in Posts on kmaris</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Oct 2023 10:12:32 -0600</lastBuildDate><atom:link href="https://kmaris.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Sep 2024 07:35:53 -0600</lastBuildDate><atom:link href="https://kmaris.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Repairing your Morrowind destiny</title>
+      <link>https://kmaris.net/posts/morrow-repair-destiny/</link>
+      <pubDate>Thu, 05 Sep 2024 07:35:53 -0600</pubDate>
+      
+      <guid>https://kmaris.net/posts/morrow-repair-destiny/</guid>
+      <description>Yeah, I still play Morrowind (with OpenMW) and love to use mods like Tamriel Rebuilt, Wyrmhaven, Beware the Sixth House, etc. In my case I installed a mod, on a fresh character!, that changed buildings (Beautiful Cities of Morrowind). Upon entering the Ald Skar Inn, whom do I find? Nobody. Nada. Bupkiss.
+Weird, I thought. It was at the momentary epiphany that I started falling. And FAST. And PASSING other unforunates.</description>
+    </item>
+    
     <item>
       <title>iTerm2, ssh, and remote tmux session integration for vim</title>
       <link>https://kmaris.net/posts/iterm2-tmux-ssh/</link>

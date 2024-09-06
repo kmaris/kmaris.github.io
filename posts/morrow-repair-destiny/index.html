@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Repairing your Morrowind destiny | kmaris</title>
+    <link rel="stylesheet" href="/css/water.css" />
+    <link rel="stylesheet" href="/css/xmin.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/cv/">CV</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Repairing your Morrowind destiny</span></h1>
+
+<h2 class="date">2024/09/05</h2>
+</div>
+
+<main>
+<p>Yeah, I still play Morrowind (with OpenMW) and love to use mods like Tamriel
+Rebuilt, Wyrmhaven, Beware the Sixth House, etc. In my case I installed a mod,
+<em>on a fresh character!</em>, that changed buildings (Beautiful Cities of Morrowind).
+Upon entering the Ald Skar Inn, whom do I find? Nobody. Nada. Bupkiss.</p>
+<p>Weird, I thought. It was at the momentary epiphany that I started falling.
+And FAST. And PASSING other unforunates.</p>
+<p>Oh hey, it&rsquo;s all of the inn dwellers and we&rsquo;re racing to oblivion. And lo and
+behold, Hassour Zainsubani is kinda important for the main quest. If he dies
+Caius drops you like it&rsquo;s HOT and your main quest is kaput with the classic
+message:</p>
+<blockquote>
+<p>&ldquo;The path to your destiny is blocked&rdquo;</p>
+</blockquote>
+<p>I also never saw the other clear signal you&rsquo;re screwed:</p>
+<blockquote>
+<p>&ldquo;With this character&rsquo;s death, the thread of prophecy is severed. Restore a
+saved game to restore the weave of fate, or persist in the doomed world you
+have created.&rdquo;</p>
+</blockquote>
+<p>&ldquo;That sucks!&rdquo;, &ldquo;WHAT THE FUCK&rdquo;, &ldquo;How did that happen?&rdquo;, &ldquo;Sigghhhh&hellip;..&rdquo;.
+Surprise, confusion, grief, acceptance. One might call these the seven
+(okay not seven) stages of playing Morrowind.</p>
+<h3 id="lets-fix-it">Lets fix it</h3>
+<p>Alright, you don&rsquo;t want to start a new character and all the snappy bitches on
+reddit that tell you to do so can fuxk off. You&rsquo;ll need a hex editor (I use HxD
+on windows) so get that or something similar if you don&rsquo;t have it. Also this is
+for OpenMW. If you&rsquo;re still playing OG morrowind, switch over. You&rsquo;ll be happier
+for it. You&rsquo;ll need to be able to use the console by pressing the ~ key
+in-game. There are many guides and videos on youtube if you need more help.</p>
+<p>Here&rsquo;s what I did:</p>
+<ul>
+<li>First, save your game as it is.</li>
+<li>Now, create ANOTHER save, with a filename you&rsquo;ll remember that signifies that
+is the one you will edit.</li>
+<li>Resurrect your NPC, I am using Hassour Zainsubani for example but others will
+be similar.</li>
+<li>Use the hex editor to reset the death count to zero.</li>
+</ul>
+<h2 id="resurrection">Resurrection</h2>
+<p>Stand where you want to place the NPC, I generally stand where they would be
+before mod fuckery. Get the position and note the outputs of the commands:</p>
+<pre tabindex="0"><code>player-&gt;GetPos x
+player-&gt;GetPos y
+player-&gt;GetPos z
+</code></pre><p>You will get a numeric output for each, in my case in Ald Skar Inn they were:</p>
+<pre tabindex="0"><code>x = 495.423950
+y = -1562.035156
+z = -254.999969
+</code></pre><p>Your numbers probably won&rsquo;t match mine. Now move your character a few steps
+away, and revive the npc.</p>
+<pre tabindex="0"><code>&#34;hassour zainsubani&#34;-&gt;PositionCell, 495.423950, -1562.035156, -254.999969, 0, &#34;Ald-ruhn, Ald Skar Inn&#34;
+</code></pre><p>That will spawn him, dead or alive. Or should, I guess. If he&rsquo;s dead, then bring
+him back:</p>
+<pre tabindex="0"><code>&#34;hassour zainsubani&#34;-&gt;Resurrect
+</code></pre><p>Now that he&rsquo;s alive and well, save and quit the game.</p>
+<h2 id="edit-death-count">Edit death count</h2>
+<p>Find your OpenMW saves folder, for me on windows 11 it is in
+<code>Documents\My Games\OpenMW\saves\&lt;your character&gt;\</code>.</p>
+<p>Make a backup then open the .omwsave file that you want to edit. Search for the
+name of the npc you resurrected, ie &ldquo;hassour&rdquo;. There will be several matches,
+but go until you see something resembling <code>hassour zainsubabiCOUN....</code>. The
+trailing periods (representing bytes) are what we&rsquo;ll be editing.</p>
+<p>Now we need to find the byte to edit. Immediately after COUN will be a number
+(4 in the screenshot below, underlined in red).</p>
+<img src="hassour_coun.png">
+<p>Ignore that and find the <em>next</em> number, 2 as shown in the next screenshot.
+Set that 2 to 0 (zero), underlined in red.</p>
+<img src="hassour_deadcount_reset.png">
+<p>Save the file and try playing your game! If all goes well Caius won&rsquo;t be pissed
+at you anymore. If it fails to load (expecting different numbers) then you
+edited the wrong thing.</p>
+<h2 id="references">References</h2>
+<p>Here are a few links to help find info about npc names/id (their ID is often
+their name). And also a link to console command reference as well as where
+I found interior cell names which you&rsquo;ll need to specify when running the
+PositionCell command.</p>
+<ul>
+<li><a href="https://wiki.openmw.org/index.php?title=Morrowind_Interior_Cell_Names">https://wiki.openmw.org/index.php?title=Morrowind_Interior_Cell_Names</a></li>
+<li><a href="http://www.gamesas.com/there-console-command-make-npc-appear-before-you-t365414.html">http://www.gamesas.com/there-console-command-make-npc-appear-before-you-t365414.html</a></li>
+<li><a href="https://en.uesp.net/wiki/Morrowind:Console">https://en.uesp.net/wiki/Morrowind:Console</a></li>
+<li><a href="https://elderscrolls.fandom.com/wiki/Hassour_Zainsubani">https://elderscrolls.fandom.com/wiki/Hassour_Zainsubani</a></li>
+</ul>
+
+</main>
+
+  <footer>
+  
+  
+  © Kevin Maris 2020 <a href="https://github.com/kmaris">Github</a> | <a href="https://gitlab.com/kmaris">Gitlab</a>
+  
+  </footer>
+  </body>
+</html>
+
